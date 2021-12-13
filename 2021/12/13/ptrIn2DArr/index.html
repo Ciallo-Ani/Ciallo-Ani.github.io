@@ -12,25 +12,25 @@
     
 
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <meta name="description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061#include &lt;iostream&gt;#include &lt;math.h&gt;using std::cin;using std::cout;void Sho">
+    <meta name="description" content="test">
 <meta property="og:type" content="article">
 <meta property="og:title" content="笔记（指针操作2D array）">
 <meta property="og:url" content="http://example.com/2021/12/13/ptrIn2DArr/index.html">
 <meta property="og:site_name" content="My blog">
-<meta property="og:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061#include &lt;iostream&gt;#include &lt;math.h&gt;using std::cin;using std::cout;void Sho">
+<meta property="og:description" content="test">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-12-13T06:18:21.000Z">
-<meta property="article:modified_time" content="2021-12-13T06:41:07.501Z">
+<meta property="article:modified_time" content="2021-12-13T06:52:40.040Z">
 <meta property="article:author" content="Ciallo-Ani">
 <meta property="article:tag" content="Markdown">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="Algorithm">
 <meta name="twitter:card" content="summary">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css,npm/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,npm/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css?v=233" crossorigin>
-    <link rel="stylesheet" href="/css/style.css?v=1639377991563">
+    <link rel="stylesheet" href="/css/style.css?v=1639378367430">
      
     
-    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1639377991563">
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1639378367430">
     
 <meta name="generator" content="Hexo 5.4.0"></head>
 
@@ -148,14 +148,13 @@
       
       <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
     <a><i class="nexmoefont icon-calendar-fill"></i>2021年12月13日</a>
-    <a><i class="nexmoefont icon-areachart"></i>174 字</a>
+    <a><i class="nexmoefont icon-areachart"></i>1 字</a>
     <a><i class="nexmoefont icon-time-circle-fill"></i>大概 1 分钟</a>
 </div>
 
       
 
-      <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;math.h&gt;</span></span><br><br><span class="hljs-keyword">using</span> std::cin;<br><span class="hljs-keyword">using</span> std::cout;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ShowMartix</span><span class="hljs-params">(<span class="hljs-keyword">int</span> **arr, <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;len)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++)<br>	&#123;<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; len; j++)<br>		&#123;<br>			cout &lt;&lt; arr[i][j] &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;<br>		&#125;<br>		cout &lt;&lt; <span class="hljs-string">&#x27;\n&#x27;</span>;<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">CutMartix</span><span class="hljs-params">(<span class="hljs-keyword">int</span> **arr, <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;len)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len/<span class="hljs-number">2</span>; i++)<br>	&#123;<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; len/<span class="hljs-number">2</span>; j++)<br>		&#123;<br>			arr[i][j] = <span class="hljs-number">0</span>;<br>		&#125;<br>	&#125;<br><br>​	cout &lt;&lt; <span class="hljs-string">&#x27;\n&#x27;</span>;<br><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">int</span> n;	cin &gt;&gt; n;<br>	<span class="hljs-keyword">int</span> len = <span class="hljs-built_in">pow</span>(<span class="hljs-number">2</span>, n);<br>	<span class="hljs-keyword">int</span> matrix[len][len];<br>	<span class="hljs-keyword">int</span> **p = <span class="hljs-literal">nullptr</span>;<br>	p = (<span class="hljs-keyword">int</span> **)<span class="hljs-built_in">malloc</span>(<span class="hljs-built_in"><span class="hljs-keyword">sizeof</span></span>(<span class="hljs-keyword">int</span> *) *len);<br><br>​	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len*len; i++)<br>​	&#123;<br>​		*((<span class="hljs-keyword">int</span>*)matrix + i) = <span class="hljs-number">1</span>;<br>​	&#125;<br>​	<br>​	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i ++)<br>​	&#123;<br>​	    p[i] = matrix[i];<br>​	&#125;<br>​	<br>​	<span class="hljs-built_in">ShowMartix</span>(p, len);<br>​	<br>​	<span class="hljs-built_in">CutMartix</span>(p, len);<br>​	<br>​	<span class="hljs-built_in">ShowMartix</span>(p, len);<br>​	<br>​	<span class="hljs-built_in">free</span>(p);<br>​	<br>​	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br><br>&#125;<br></code></pre></td></tr></table></figure>
-
+      <p>test</p>
 
   </article>
 
@@ -208,10 +207,10 @@
 
  
 
-<script async src="/js/app.js?v=1639377991566"></script>
+<script async src="/js/app.js?v=1639378367433"></script>
 
 
-	<script async src="/js/search.js?v=1639377991567"></script>
+	<script async src="/js/search.js?v=1639378367433"></script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
