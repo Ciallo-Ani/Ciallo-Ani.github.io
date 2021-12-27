@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+    
+    <title>MYSQL—数据类型和常用函数 - My blog</title>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    
+    
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <meta name="description" content="大佬的hashMap的面试总结1.说说你对hash算法的理解   答：嗯，hashMap基本概述就量把任意长度的输入通过一个hash算法之后映射成固定长度的输出。  追问1：hash算法任意长度的输入 转化为了 固定长度的输出，会不会有问题呢？   答：这个肯定会有问题的，在程序中可能碰到两个value值经过hash算法之后算法同样的hash值，也就会发生hash冲突。  追问2：hash冲突能避">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MYSQL—数据类型和常用函数">
+<meta property="og:url" content="http://example.com/2021/12/25/hashMap/index.html">
+<meta property="og:site_name" content="My blog">
+<meta property="og:description" content="大佬的hashMap的面试总结1.说说你对hash算法的理解   答：嗯，hashMap基本概述就量把任意长度的输入通过一个hash算法之后映射成固定长度的输出。  追问1：hash算法任意长度的输入 转化为了 固定长度的输出，会不会有问题呢？   答：这个肯定会有问题的，在程序中可能碰到两个value值经过hash算法之后算法同样的hash值，也就会发生hash冲突。  追问2：hash冲突能避">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/dsgnjQbIc19wBrPbM27BFv0PyPZm547MxJC92CDyZ7NcUPsRFoANeJhGl9VTyTW3SK4r8ACH2tDNzxZptLR1CQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="article:published_time" content="2021-12-25T08:12:52.000Z">
+<meta property="article:modified_time" content="2021-12-27T09:02:11.406Z">
+<meta property="article:author" content="Ciallo-Ani">
+<meta property="article:tag" content="Markdown">
+<meta property="article:tag" content="Data Structure">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mmbiz.qpic.cn/mmbiz_png/dsgnjQbIc19wBrPbM27BFv0PyPZm547MxJC92CDyZ7NcUPsRFoANeJhGl9VTyTW3SK4r8ACH2tDNzxZptLR1CQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css,npm/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,npm/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css?v=233" crossorigin>
+    <link rel="stylesheet" href="/css/style.css?v=1640595748321">
+     
+    
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1640595748321">
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+    
+    <div id="nexmoe-background">
+        <div class="nexmoe-bg" style="background-image: url(https://raw.githubusercontent.com/Ciallo-Ani/Ciallo-Ani.github.io/master/default.png)"></div>
+        <div class="mdui-appbar mdui-shadow-0">
+            <div class="mdui-toolbar">
+                <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+                <div class="mdui-toolbar-spacer"></div>
+                <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+                <a href="/" title="Ciallo-Ani" class="mdui-btn mdui-btn-icon"><img src="https://raw.githubusercontent.com/Ciallo-Ani/Ciallo-Ani.github.io/master/avatar.png" alt="Ciallo-Ani"></a>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-header">
+        <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Ciallo-Ani">
+            <img src="https://raw.githubusercontent.com/Ciallo-Ani/Ciallo-Ani.github.io/master/avatar.png" alt="Ciallo-Ani" alt="Ciallo-Ani">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>4</div>
+        <div><span>标签</span>6</div>
+        <div><span>分类</span>0</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/about" title="关于博客(not done)">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客(not done)
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" target="_blank" rel="noopener" href="http://43.240.157.98:40000/1/main" title="我的下载站">
+            <i class="mdui-list-item-icon nexmoefont icon-appstore-fill"></i>
+            <div class="mdui-list-item-content">
+                我的下载站
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+    
+    <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        
+            <form id="search_form">
+                <label><input class="st-default-search-input" id="search_value" name="q" type="search" placeholder="搜索" style="
+                    font-size: 15px !important;
+                    height: 56px !important;
+                    background-image: none;
+                "></label>
+            </form>
+         
+    </div>
+</div>
+    
+    <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="https://wpa.qq.com/msgrd?v=3&uin=1593464801" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="https://space.bilibili.com/2988883" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/Ciallo-Ani" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a><a class="mdui-ripple" href="https://steamcommunity.com/id/anie1337" target="_blank" mdui-tooltip="{content: 'Steam'}" style="color: rgb(14, 71, 161);background-color: rgba(14, 71, 161, .1);">
+            <i class="nexmoefont icon-steam"></i>
+        </a>
+    </div>
+</div>
+    
+    
+
+    
+    
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/Algorithm/" style="font-size: 10px;">Algorithm</a> <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/Data-Structure/" style="font-size: 15px;">Data Structure</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Markdown/" style="font-size: 20px;">Markdown</a> <a href="/tags/Mysql/" style="font-size: 10px;">Mysql</a>
+    </div>
+    
+  </div>
+
+    
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2021 Ciallo-Ani
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        <br><a target="_blank" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral"><img src="https://i.dawnlab.me/c0268c1e6cfd0863d6ba35be1575941a.png" width="150px"></a><script data-ad-client="ca-pub-2058306854838448" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    </div>
+</div><!-- .nexmoe-drawer -->
+    </div>
+    <div id="nexmoe-content">
+        <div class="nexmoe-primary">
+            <div class="nexmoe-post">
+
+  <article>
+      
+          <div class="nexmoe-post-cover" style="padding-bottom: 66.66666666666666%;"> 
+              <img data-src="https://raw.githubusercontent.com/Ciallo-Ani/Ciallo-Ani.github.io/master/default.png" data-sizes="auto" alt="MYSQL—数据类型和常用函数" class="lazyload">
+              <h1>MYSQL—数据类型和常用函数</h1>
+          </div>
+      
+      
+      <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年12月25日</a>
+    <a><i class="nexmoefont icon-areachart"></i>3.7k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 15 分钟</a>
+</div>
+
+      
+
+      <h2 id="大佬的hashMap的面试总结"><a href="#大佬的hashMap的面试总结" class="headerlink" title="大佬的hashMap的面试总结"></a>大佬的hashMap的面试总结</h2><p>1.说说你对hash算法的理解</p>
+<p>  答：嗯，hashMap基本概述就量把任意长度的输入通过一个hash算法之后映射成固定长度的输出。<br>  追问1：hash算法任意长度的输入 转化为了 固定长度的输出，会不会有问题呢？</p>
+<p>  答：这个肯定会有问题的，在程序中可能碰到两个value值经过hash算法之后算法同样的hash值，也就会发生hash冲突。<br>  追问2：hash冲突能避免么？</p>
+<p>  答：这个理论是没法避免的，就类比咱一共有6根黄黄的香蕉，但是咱一个才有5个盒子，就是最终一定会有一个盒子里的数量是大于1的，所以，hash冲突没有办法避免，只能尽量减少或者避免冲突的产生。比如加盒子或者放时更均衡等策略。</p>
+<p>  追问3：你认为好的hash算法，应该考虑点有哪些呢？</p>
+<p>​    答：首先这个hash算法，它一定效率得高，要做到长文本也能高效计算出hash值嘛，这二点就是hash值不能让它逆推出原文吧；两次输入，只要有一点不同，它也得保证这个hash值是不同的。其次，就是尽可能的要分散吧，因为，在table中slot中slot大总会发都处于空闲状的，要尽可能降低hash冲突。</p>
+<p>2.HashMap中存储数据的结构是什么样的呢？</p>
+<p> 答：JDK1.7： 数组 + 链表；</p>
+<p>JDK1.8：数组 + 链表 + 红黑树，每个数据块是一个Node结构，Node结构中有key、value、next、hash这四个属性。next属性就是发生hash冲突的时候，当前桶位中node与冲突的node连成一个链表要用的属性，即当前节点的下一个节点。</p>
+<p>3.创建HashMap时，不指定散列表数组长度，初始长度是多少呢？</p>
+<p>  答：默认是16</p>
+<p>在JDK 8中，关于默认容量的定义为：static final int DEFAULT_INITIAL_CAPACITY = 1 &lt;&lt; 4; //16 ，其故意把16写成1&lt;&lt;4，就是提醒开发者，这个地方要是2的幂。</p>
+<p>  追问1：为啥用位运算呢？直接写16不好么？</p>
+<p>​      答：这样是为了位运算的方便，位与运算比算数计算的效率高了很多，之所以选择16，是为了服务将Key映射到index的算法。</p>
+<p>  追问2：为啥用16不用别的呢？</p>
+<p>   答：因为在使用不是2的幂的数字的时候，Length-1的值是所有二进制位全为1，这种情况下，index的结果等同于HashCode后几位的值。这个值既不能太小，也不能太大。太小了就有可能频繁发生扩容，影响效率，太大了又浪费空间，不划算。只要输入的HashCode本身分布均匀，Hash算法的结果就是均匀的。这是为了实现均匀分布。</p>
+<p>  追问3：散列表是new HashMap() 时创建的么？</p>
+<p>​    答：不是，是在第一次put时创建的</p>
+<p>4.默认负载因子是多少呢，并且这个负载因子有什么作用？</p>
+<p>答：默认是…默认负载因子0.75，就是75%，负载因子它的作用就是计算扩容阈值用的，比如使用无参构造方法创建的hashmap对象，它默认情况下扩容阈值就 16*0.75 = 12</p>
+<p>5.链表转化为红黑树，需要达到什么条件呢？</p>
+<p>答：链表转红黑树，主要是有两个指标，1）是链表长度达到8，这有个指标就是当前散列表数组长度它已经达到64。否则的话，就算slot内部链表长度到了8，它也不会链转树，它仅仅会发生一次resize，散列表扩容。</p>
+<p>6.Node对象内部的hash字段，这个hash值是key对象的hashcode()返回值么？</p>
+<p>  答：不是的</p>
+<p>  追问1：这个hash值是怎么得到呢？</p>
+<p>  答：这个hash值是key.hashcode二次加工得到的。加工原则是：key的hashcode 高16位 ^ 低16位，得到的一个新值。  </p>
+<p>  追问2：hash字段为什么采用高低位异或？</p>
+<p>​    答：主要为了优化hash算法，因为hashmap内部散列表，它大多数场景下，它不会特别大。也就是说这个[table.length - 1] 得到的这个二进制数，实际有效位很有限，一般都在（低）16位以内，这样的话，key的hash值高16位就等于完全浪费了，没起到作用。所以，node的hash字段才采用了 高16位 异或 低16位 这种方式来搞它。</p>
+<p>7.HashMap put 写数据的具体流程，尽可能的详细点！</p>
+<p>答： 主要为4种情况：前面这个，寻址算法是一样的，都是根据key的hashcode 经过 高低位 异或 之后的值，然后再 按位与 &amp; （table.length -1)，得到一个槽位下标，然后根据这个槽内状况，状况不同，情况也不同，大概就是4种状态，</p>
+<p>1）是slot == null，直接占用slot就可以了，然后把当前put方法传进来的key和value包状成一个Node 对象，放到这个slot中就可以了</p>
+<p>2）slot != null 并且 它引用的node 还没有链化；需要对比一下，node的key 与当前put 对象的key 是否完全相等；如果完全相等的话，这个操作就是replace操作，就是替换操作，把那个新的value替换当前slot -&gt; node.value 就可以了；否则的话，这次put操作就是一个正儿八经的hash冲突了，slot-&gt;node 后面追加一个node就可以了，采用尾插法。</p>
+<p>3）就是slot 内的node已经链化了；这种情况和第二种情况处理很相似，首先也是迭代查找node，看看链表上的元素的key，与当前传来的key是不是完全一致。如果一致的话，还是repleace操作，替换当前node.value，否则的话就是我们迭代到链表尾节点也没有匹配到完全一致的node，把put数据包装成node追加到链表尾部；这块还没完，还需要再检查一下当前链表长度，有没有达到树化阈值，如果达到阈值的话，就调用一个树化方法，树化操作都在这个方法里完成</p>
+<p>4）就是冲突很严重的情况下，就是那个链已经转化成红黑树了</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://mmbiz.qpic.cn/mmbiz_png/dsgnjQbIc19wBrPbM27BFv0PyPZm547MxJC92CDyZ7NcUPsRFoANeJhGl9VTyTW3SK4r8ACH2tDNzxZptLR1CQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片" class="lazyload"></p>
+<p>8.红黑树的写入操作，是怎么找到父节点的，找父节点流程？</p>
+<p>答：说清楚红黑树，首先说清楚TreeNode，TreeNode它就是继承Node结构，在Node基础上加了几个字段，分别指向父节点parent，然后指向左子节点left，还有指向右子节点的right，然后还有表示颜色red/black，这个就是TreeNode的基本结构</p>
+<p>红黑树的插入操作：首先是找到一个合适的插入点，就是找到插入节点的父节点，然后这个红黑树它又满足二叉树的所有排序特性…(满足二叉排序树的所有特性)，这个找父节点的操作和二叉树是完全一致的。二叉查找树，左子节点小于当前节点，右子节点大于当前节点，然后每一次向下查找一层就可以排除掉一半的数据，插入效率在log(N)</p>
+<p>查找的过程也是分情况的，第一种情况就是一直向下探测，直到查询到左子树或者右子树为null，说明整个树中，它没有发现node.key与当前put key 一致的这个TreeNode。此时探测节点就是插入父节点所在了；然后是当前插入节点插入到父节点的左子树或者右子树，就完事了，然后，根据这个插入节点的hash值和父节点的hash值大小决定左右的，插入会打码平衡，还需要一个红黑树的平衡算法。</p>
+<p>第二种情况就是根节点向下探测过程中，发现这个TreeNode.key 与当前 put.key 完全一致。说明它也是一次repleace操作。</p>
+<p>9.TreeNode数据结构，简单说下。</p>
+<p>答：继承node节点</p>
+<ul>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+</ul>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs scala">static <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TreeNode&lt;K</span>,<span class="hljs-title">V&gt;</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">LinkedHashMap</span>.<span class="hljs-title">Entry&lt;K</span>,<span class="hljs-title">V&gt;</span> </span>&#123;        <span class="hljs-type">TreeNode</span>&lt;<span class="hljs-type">K</span>,<span class="hljs-type">V</span>&gt; parent;  <span class="hljs-comment">// red-black tree links 父节点        TreeNode&lt;K,V&gt; left;// 左孩子        TreeNode&lt;K,V&gt; right;// 右孩子        TreeNode&lt;K,V&gt; prev;    //当前节点 needed to unlink next upon deletion        boolean red;//颜色，红/黑</span><br></code></pre></td></tr></table></figure>
+
+<p>10.红黑树的原则有哪些呢？</p>
+<p>答：</p>
+<ul>
+<li>每个节点颜色不是黑色，就是红色</li>
+<li>根节点是黑色的</li>
+<li>如果一个节点是红色，那么它的两个子节点就是黑色的(没有连续的红节点)</li>
+<li>对于每个节点，从该节点到其后代叶节点的简单路径上，均包含相同数目黑色节点</li>
+</ul>
+<p>11.JDK8 hashmap为什么引入红黑树？解决什么问题？</p>
+<p>答：在JDK1.6，JDK1.7中，HashMap采用数组+链表实现，即使用链表处理冲突，同一hash值的链表都存储在一个链表里。但是当位于一个桶中的元素较多，即hash值相等的元素较多时，通过key值依次查找的效率较低。而JDK1.8中，HashMap采用数组+链表+红黑树实现，当链表长度超过阈值（8）时，将链表转换为红黑树，这样大大减少了查找时间。在jdk1.8版本后，java对HashMap做了改进，在链表长度大于8的时候，将后面的数据存在红黑树中，以加快检索速度。</p>
+<p> JDK1.8HashMap的红黑树是这样解决的：</p>
+<p>​     如果某个桶中的记录过大的话（当前是TREEIFY_THRESHOLD = 8），HashMap会动态的使用一个专门的treemap实现来替换掉它。这样做的结果会更好</p>
+<p>​    它是如何工作的？前面产生冲突的那些KEY对应的记录只是简单的追加到一个链表后面，这些记录只能通过遍历来进行查找。但是超过这个阈值后HashMap开始将列表升级成一个二叉树，使用哈希值作为树的分支变量，如果两个哈希值不等，但指向同一个桶的话，较大的那个会插入到右子树里。如果哈希值相等，HashMap希望key值最好是实现了Comparable接口的，这样它可以按照顺序来进行插入。这对HashMap的key来说并不是必须的，不过如果实现了当然最好。如果没有实现这个接口，在出现严重的哈希碰撞的时候，你就并别指望能获得性能提升了。</p>
+<h3 id="追问1：为什么是红黑树？为什么不直接采用红黑树还要用链表？"><a href="#追问1：为什么是红黑树？为什么不直接采用红黑树还要用链表？" class="headerlink" title="追问1：为什么是红黑树？为什么不直接采用红黑树还要用链表？"></a>追问1：为什么是红黑树？为什么不直接采用红黑树还要用链表？</h3><p>1、因为红黑树需要进行左旋，右旋操作， 而单链表不需要，<br>   如果元素小于8个，查询成本高，新增成本低<br>   如果元素大于8个，查询成本低，新增成本高</p>
+<p> 追问2：为什么hash冲突后性能变低了？【送分题】</p>
+<p>​    需要去链表或者红黑树中循环去找元素，不管是哪两种都会使怪胎变低。</p>
+<p>12.hashmap 什么情况下会触发扩容呢？</p>
+<p>答：在写数据之后会触发扩容，可能会触发扩容。hashmap结构内，我记得有个记录当前数据量的字段，这个数据量字段达到扩容阈值的话，下一个写入的对象是在列表才会触发扩容   </p>
+<p>  追问1：触发扩容后，会扩容多大呢？算法是什么？</p>
+<p>  答：因为table 数组长度必须是2的次方数嘛，扩容其实，每次都是按照上一次的tableSize位移运算得到的。就是做一次左移1位运算，假设当前tableSize是16的话，16 &lt;&lt; 1 == 32  </p>
+<p>   追问2：为什么采用位移运算，不是直接*2？</p>
+<p>  答：主要是因为性能，因为cpu毕竟它不支持乘法运算，所有乘法运算它最终都是在指令层面转化为加法实现的。效率很低，如果用位运算的话对cpu来说就非常简洁高效</p>
+<p>13.hashmap扩容后，老表的数据怎么迁移到扩容后的表的呢？</p>
+<p>迁移其实就是，每个桶位推进迁移，就是一个桶位一个桶位的处理；主要还是看当前处理桶位的数据状态吧</p>
+<p>4种状态吧</p>
+<p>  1）slot存储t是null，</p>
+<p>  2）slot存储的是个node（没有链化）</p>
+<p>  3）slot存储的是个链表</p>
+<p>  4）slot存储的是一个红黑树根节点TreeNode对象</p>
+<p>这4种每种状态迁移者不一样，判断走不同的逻辑如下</p>
+<p>  1）不用处理</p>
+<p>  2）它的next节点是null，根据新表的tableSize计算出它在新表的位置，然后存放 过去就可以了</p>
+<p>  3）它的next节点不是null，链表。拆成两个链表，高位链和低位链</p>
+<p>​    高位链：高位不一定相同，有的node高位可能 是0，有的node高位可能是1，这块对应的node迁移到新表中，它所存放 的slot位置也是不一样的。那高位链，因为高位链是1，所以说存储到扩容，就是到新了之后。。是老表的位置 +老表的size  </p>
+<p>​    如: 老表table是16，数据存放在老表（下标）8的位置，那存储扩容后，表的位置就是8+16就是24。</p>
+<p>​    低位链：指的是老表的tablesize-1转化出来的二进制数的有效位，低位链因为高位是0，所以说迁移到node新表的时候，这个slot下标和老的是一样的。 </p>
+<p>​      如：table数据长度是16，16-1是15，然后15转化出来的二进制数就是1111  ， 说明你们是低四位，高位是5位</p>
+<p>  4）迁移数据发现该slot是颗红黑树，怎么处理呢？</p>
+<p>  红黑树节点对象，这个TreeNode结构啊，依然保留了这个next字段，</p>
+<p>它内部还维护一个链表，但是增强删除节点时还需要维护，</p>
+<p>  链表作用是啥呢</p>
+<p>  方便split拆分这个红黑树时去用的，其实就是普通 没啥区别，就是根据高低位，拆分高低位链，</p>
+<p>  高位链这个数据：最终要存放到新表的，下标 就是老表的这个位置+老表的数组长度，然后计算出来的这个位置  。</p>
+<p>  低位链这个数据：存放益 和老表是同一个位置。</p>
+<p>不同的点。是拆分出来的表，需要看一下它的长度。</p>
+<p>  1）如果 这个长度是&lt;=6把TreeNode转化为普通的node链表，然后存放到这个扩容后的新表中就可以了</p>
+<p>  2）如果这个长期是&gt;6的话，那么需要重建红黑树</p>
+
+  </article>
+
+  
+      
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+        <a class="nexmoefont icon-tag-fill -none-link" href="/tags/Data-Structure/" rel="tag">Data Structure</a> <a class="nexmoefont icon-tag-fill -none-link" href="/tags/Java/" rel="tag">Java</a> <a class="nexmoefont icon-tag-fill -none-link" href="/tags/Markdown/" rel="tag">Markdown</a>
+    
+</div>
+
+  
+      <div class="nexmoe-post-footer">
+          
+      </div>
+  
+</div>
+            <div class="nexmoe-post-right">
+              <div class="nexmoe-fixed">
+                  <div class="nexmoe-tool"> 
+                    
+                      
+                    
+                      <a href="#nexmoe-content" class="toc-link" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+     
+    <div id="nexmoe-search-space">
+        <div class="search-container">
+            <div class="search-header">
+                <div class="search-input-container">
+                    <input class="search-input" type="text" placeholder="搜索" oninput="sinput();">
+                </div>
+                <a class="search-close" onclick="sclose();">×</a>
+            </div>
+            <div class="search-body"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+ 
+
+<script async src="/js/app.js?v=1640595748322"></script>
+
+
+	<script async src="/js/search.js?v=1640595748322"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+
+    
+
+
+
+
+
+</body>
+
+</html>
