@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+    
+    <title>MYSQL—数据类型和常用函数 - My blog</title>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    
+    
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <meta name="description" content="数据类型介绍MySQL中定义数据字段的类型对你数据库的优化是非常重要的。 MySQL支持多种类型，大致可以分为三类：数值、日期&#x2F;时间和字符串(字符)类型。 1. 数值类型 MySQL支持所有标准SQL数值数据类型。 这些类型包括严格数值数据类型(INTEGER、SMALLINT、DECIMAL和NUMERIC)，以及近似数值数据类型(FLOAT、REAL和DOUBLE PRECISION)。 关键">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MYSQL—数据类型和常用函数">
+<meta property="og:url" content="http://example.com/2021/12/23/mysql/index.html">
+<meta property="og:site_name" content="My blog">
+<meta property="og:description" content="数据类型介绍MySQL中定义数据字段的类型对你数据库的优化是非常重要的。 MySQL支持多种类型，大致可以分为三类：数值、日期&#x2F;时间和字符串(字符)类型。 1. 数值类型 MySQL支持所有标准SQL数值数据类型。 这些类型包括严格数值数据类型(INTEGER、SMALLINT、DECIMAL和NUMERIC)，以及近似数值数据类型(FLOAT、REAL和DOUBLE PRECISION)。 关键">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/dsgnjQbIc1ic1qaVtrWQRwmfzUDQD0qVI4PDqNP0GKgLVO3R9uOU8EyQ1vTpKgHL5ZEYHSkNkRpuF3jZfhoxhicQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/dsgnjQbIc1ic1qaVtrWQRwmfzUDQD0qVI2eaYlW4foptGnmsiaev2Q1553Q2lzyQhdAEUONWFQQHpcXVh5ta4njQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/dsgnjQbIc1ic1qaVtrWQRwmfzUDQD0qVIgtgnM9wjsLichdNZE3Y4Pu7xmpTyNyB9FOD3pk0lPeK65P8WMZLpCSg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="article:published_time" content="2021-12-23T04:11:25.000Z">
+<meta property="article:modified_time" content="2021-12-27T08:47:29.712Z">
+<meta property="article:author" content="Ciallo-Ani">
+<meta property="article:tag" content="Markdown">
+<meta property="article:tag" content="Mysql">
+<meta property="article:tag" content="Data Structure">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mmbiz.qpic.cn/mmbiz_png/dsgnjQbIc1ic1qaVtrWQRwmfzUDQD0qVI4PDqNP0GKgLVO3R9uOU8EyQ1vTpKgHL5ZEYHSkNkRpuF3jZfhoxhicQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css,npm/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,npm/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css?v=233" crossorigin>
+    <link rel="stylesheet" href="/css/style.css?v=1640594878766">
+     
+    
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1640594878766">
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+    
+    <div id="nexmoe-background">
+        <div class="nexmoe-bg" style="background-image: url(https://raw.githubusercontent.com/Ciallo-Ani/Ciallo-Ani.github.io/master/default.png)"></div>
+        <div class="mdui-appbar mdui-shadow-0">
+            <div class="mdui-toolbar">
+                <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+                <div class="mdui-toolbar-spacer"></div>
+                <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+                <a href="/" title="Ciallo-Ani" class="mdui-btn mdui-btn-icon"><img src="https://raw.githubusercontent.com/Ciallo-Ani/Ciallo-Ani.github.io/master/avatar.png" alt="Ciallo-Ani"></a>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-header">
+        <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Ciallo-Ani">
+            <img src="https://raw.githubusercontent.com/Ciallo-Ani/Ciallo-Ani.github.io/master/avatar.png" alt="Ciallo-Ani" alt="Ciallo-Ani">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>3</div>
+        <div><span>标签</span>5</div>
+        <div><span>分类</span>0</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/about" title="关于博客(not done)">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客(not done)
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" target="_blank" rel="noopener" href="http://43.240.157.98:40000/1/main" title="我的下载站">
+            <i class="mdui-list-item-icon nexmoefont icon-appstore-fill"></i>
+            <div class="mdui-list-item-content">
+                我的下载站
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+    
+    <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        
+            <form id="search_form">
+                <label><input class="st-default-search-input" id="search_value" name="q" type="search" placeholder="搜索" style="
+                    font-size: 15px !important;
+                    height: 56px !important;
+                    background-image: none;
+                "></label>
+            </form>
+         
+    </div>
+</div>
+    
+    <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="https://wpa.qq.com/msgrd?v=3&uin=1593464801" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="https://space.bilibili.com/2988883" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/Ciallo-Ani" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a><a class="mdui-ripple" href="https://steamcommunity.com/id/anie1337" target="_blank" mdui-tooltip="{content: 'Steam'}" style="color: rgb(14, 71, 161);background-color: rgba(14, 71, 161, .1);">
+            <i class="nexmoefont icon-steam"></i>
+        </a>
+    </div>
+</div>
+    
+    
+
+    
+    
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/Algorithm/" style="font-size: 10px;">Algorithm</a> <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/Data-Structure/" style="font-size: 10px;">Data Structure</a> <a href="/tags/Markdown/" style="font-size: 20px;">Markdown</a> <a href="/tags/Mysql/" style="font-size: 10px;">Mysql</a>
+    </div>
+    
+  </div>
+
+    
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2021 Ciallo-Ani
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        <br><a target="_blank" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral"><img src="https://i.dawnlab.me/c0268c1e6cfd0863d6ba35be1575941a.png" width="150px"></a><script data-ad-client="ca-pub-2058306854838448" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    </div>
+</div><!-- .nexmoe-drawer -->
+    </div>
+    <div id="nexmoe-content">
+        <div class="nexmoe-primary">
+            <div class="nexmoe-post">
+
+  <article>
+      
+          <div class="nexmoe-post-cover" style="padding-bottom: 66.66666666666666%;"> 
+              <img data-src="https://raw.githubusercontent.com/Ciallo-Ani/Ciallo-Ani.github.io/master/default.png" data-sizes="auto" alt="MYSQL—数据类型和常用函数" class="lazyload">
+              <h1>MYSQL—数据类型和常用函数</h1>
+          </div>
+      
+      
+      <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年12月23日</a>
+    <a><i class="nexmoefont icon-areachart"></i>2.8k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 13 分钟</a>
+</div>
+
+      
+
+      <h2 id="数据类型介绍"><a href="#数据类型介绍" class="headerlink" title="数据类型介绍"></a><strong>数据类</strong>型介绍</h2><p>MySQL中定义数据字段的类型对你数据库的优化是非常重要的。</p>
+<p>MySQL支持多种类型，大致可以分为三类：数值、日期/时间和字符串(字符)类型。</p>
+<p><strong>1. 数值类型</strong></p>
+<p>MySQL支持所有标准SQL数值数据类型。</p>
+<p>这些类型包括严格数值数据类型(INTEGER、SMALLINT、DECIMAL和NUMERIC)，以及近似数值数据类型(FLOAT、REAL和DOUBLE PRECISION)。</p>
+<p>关键字INT是INTEGER的同义词，关键字DEC是DECIMAL的同义词。</p>
+<p>BIT数据类型保存位字段值，并且支持MyISAM、MEMORY、InnoDB和BDB表。</p>
+<p>作为SQL标准的扩展，MySQL也支持整数类型TINYINT、MEDIUMINT和BIGINT。下面的表显示了需要的每个整数类型的存储和范围。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://mmbiz.qpic.cn/mmbiz_png/dsgnjQbIc1ic1qaVtrWQRwmfzUDQD0qVI4PDqNP0GKgLVO3R9uOU8EyQ1vTpKgHL5ZEYHSkNkRpuF3jZfhoxhicQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片" class="lazyload"></p>
+<p>————————————————</p>
+<p><strong>2. 日期和时间类型</strong></p>
+<p>表示时间值的日期和时间类型为DATETIME、DATE、TIMESTAMP、TIME和YEAR。</p>
+<p>每个时间类型有一个有效值范围和一个”零”值，当指定不合法的MySQL不能表示的值时使用”零”值。</p>
+<p>TIMESTAMP类型有专有的自动更新特性，将在后面描述。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://mmbiz.qpic.cn/mmbiz_png/dsgnjQbIc1ic1qaVtrWQRwmfzUDQD0qVI2eaYlW4foptGnmsiaev2Q1553Q2lzyQhdAEUONWFQQHpcXVh5ta4njQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片" class="lazyload"></p>
+<p>结束时间是第 <strong>2147483647</strong> 秒，北京时间 <strong>2038-1-19 11:14:07</strong>，格林尼治时间 2038年1月19日 凌晨 03:14:07</p>
+<p>YYYYMMDD HHMMSS 混合日期和时间值，时间戳</p>
+<h3 id="3-字符串类型"><a href="#3-字符串类型" class="headerlink" title="3. 字符串类型"></a><strong>3. 字符串类型</strong></h3><p>字符串类型指CHAR、VARCHAR、BINARY、VARBINARY、BLOB、TEXT、ENUM和SET。该节描述了这些类型如何工作以及如何在查询中使用这些类型。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://mmbiz.qpic.cn/mmbiz_png/dsgnjQbIc1ic1qaVtrWQRwmfzUDQD0qVIgtgnM9wjsLichdNZE3Y4Pu7xmpTyNyB9FOD3pk0lPeK65P8WMZLpCSg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片" class="lazyload"></p>
+<p>CHAR 和 VARCHAR 类型类似，但它们保存和检索的方式不同。它们的最大长度和是否尾部空格被保留等方面也不同。在存储或检索过程中不进行大小写转换。</p>
+<p>BINARY 和 VARBINARY 类似于 CHAR 和 VARCHAR，不同的是它们包含二进制字符串而不要非二进制字符串。也就是说，它们包含字节字符串而不是字符字符串。这说明它们没有字符集，并且排序和比较基于列值字节的数值值。</p>
+<p>BLOB 是一个二进制大对象，可以容纳可变数量的数据。有 4 种 BLOB 类型：TINYBLOB、BLOB、MEDIUMBLOB 和 LONGBLOB。它们区别在于可容纳存储范围不同。</p>
+<p>有 4 种 TEXT 类型：TINYTEXT、TEXT、MEDIUMTEXT 和 LONGTEXT。对应的这 4 种 BLOB 类型，可存储的最大长度不同，可根据实际情况选择。</p>
+<p><strong>常用函数</strong></p>
+<p>mysql内置函数列表可以从mysql官方文档查询，这里仅分类简单介绍一些可能会用到的函数。</p>
+<p><strong>1. 数学函数</strong><br>$$<br>abs(x)</p>
+<p>pi()</p>
+<p>mod(x,y)：余数</p>
+<p>sqrt(x)：开平方根</p>
+<p>ceil(x)或者ceiling(x)</p>
+<p>rand(),rand(N):返回0-1间的浮点数，使用不同的seed N可以获得不同的随机数</p>
+<p>round(x, D)：四舍五入保留D位小数，D默认为0， 可以为负数， 如round(19, -1)返回20</p>
+<p>truncate(x, D):截断至保留D位小数，D可以为负数， 如trancate(19,-1)返回10</p>
+<p>sign(x): 返回x的符号，正负零分别返回1， -1， 0</p>
+<p>pow(x,y)或者power(x,y)</p>
+<p>exp(x)：e^x</p>
+<p>log(x)：自然对数</p>
+<p>log10(x)：以10为底的对数</p>
+<p>radians(x):角度换弧度</p>
+<p>degrees(x):弧度换角度</p>
+<p>sin(x)和asin(x):</p>
+<p>cos(x)和acos(x):</p>
+<p>tan(x)和atan(x):</p>
+<p>cot(x):<br>$$</p>
+<p><strong>2. 字符串函数</strong></p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-built_in">char</span><span class="hljs-constructor">_length(<span class="hljs-params">str</span>)</span>:返回str所包含的字符数，一个多字节字符算一个字符<br><br>length(str): 返回字符串的字节长度，如utf8中，一个汉字<span class="hljs-number">3</span>字节，数字和字母算一个字节<br><br>concat(s1, s1, ...): 返回连接参数产生的字符串<br><br>concat<span class="hljs-constructor">_ws(<span class="hljs-params">x</span>, <span class="hljs-params">s1</span>, <span class="hljs-params">s2</span>, <span class="hljs-operator">...</span>)</span>: 使用连接符x连接其他参数产生的字符串<br><br><span class="hljs-constructor">INSERT(<span class="hljs-params">str</span>,<span class="hljs-params">pos</span>,<span class="hljs-params">len</span>,<span class="hljs-params">newstr</span>)</span>:返回str,其起始于pos，长度为len的子串被newstr取代。<br><br>\<span class="hljs-number">1.</span> 若pos不在str范围内，则返回原字符串str<br><br>\<span class="hljs-number">2.</span> 若str中从pos开始的子串不足len,则将从pos开始的剩余字符用newstr取代<br><br>\<span class="hljs-number">3.</span> 计算pos时从<span class="hljs-number">1</span>开始，若pos=<span class="hljs-number">3</span>,则从第<span class="hljs-number">3</span>个字符开始替换<br><br>lower（str)或者lcase(str):<br><br>upper(str)或者ucase(str):<br><br>left(s,n):返回字符串s最左边n个字符<br><br>right(s,n): 返回字符串最右边n个字符<br><br>lpad(s1, len, s2): 用s2在s1左边填充至长度为len, 若s1的长度大于len,则截断字符串s1至长度len返回<br><br>rpad(s1, len, s2):<br><br>ltrim(s):删除s左侧空格字符<br><br>rtrim(s):<br><br><span class="hljs-constructor">TRIM([&#123;BOTH | LEADING | TRAILING&#125; [<span class="hljs-params">remstr</span>] FROM] <span class="hljs-params">str</span>)</span>或<span class="hljs-constructor">TRIM([<span class="hljs-params">remstr</span> FROM] <span class="hljs-params">str</span>)</span>：从str中删除remstr, remstr默认为空白字符<br><br><span class="hljs-constructor">REPEAT(<span class="hljs-params">str</span>,<span class="hljs-params">count</span>)</span>：返回str重复count次得到的新字符串<br><br><span class="hljs-constructor">REPLACE(<span class="hljs-params">str</span>,<span class="hljs-params">from_str</span>,<span class="hljs-params">to_str</span>)</span>： 将str中的from_str全部替换成to_str<br><br><span class="hljs-constructor">SPACE(N)</span>:返回长度为N的空白字符串<br><br><span class="hljs-constructor">STRCMP(<span class="hljs-params">str1</span>,<span class="hljs-params">str2</span>)</span>:若str1和str2相同，返回<span class="hljs-number">0</span>， 若str1小于str2, 返回-<span class="hljs-number">1</span>， 否则返回<span class="hljs-number">1.</span><br><br><span class="hljs-constructor">SUBSTRING(<span class="hljs-params">str</span>,<span class="hljs-params">pos</span>)</span>, <span class="hljs-constructor">SUBSTRING(<span class="hljs-params">str</span> FROM <span class="hljs-params">pos</span>)</span>, <span class="hljs-constructor">SUBSTRING(<span class="hljs-params">str</span>,<span class="hljs-params">pos</span>,<span class="hljs-params">len</span>)</span>, <span class="hljs-constructor">SUBSTRING(<span class="hljs-params">str</span> FROM <span class="hljs-params">pos</span> FOR <span class="hljs-params">len</span>)</span>,<span class="hljs-constructor">MID(<span class="hljs-params">str</span>,<span class="hljs-params">pos</span>,<span class="hljs-params">len</span>)</span>: 获取特定位置，特定长度的子字符串<br><br><span class="hljs-constructor">LOCATE(<span class="hljs-params">substr</span>,<span class="hljs-params">str</span>)</span>, <span class="hljs-constructor">LOCATE(<span class="hljs-params">substr</span>,<span class="hljs-params">str</span>,<span class="hljs-params">pos</span>)</span>,<span class="hljs-constructor">INSTR(<span class="hljs-params">str</span>,<span class="hljs-params">substr</span>)</span>,<span class="hljs-constructor">POSITION(<span class="hljs-params">substr</span> IN <span class="hljs-params">str</span>)</span>: 返回字符串中特定子串的位置，注意这里INSTR与其他函数的参数位置是相反的<br><br><span class="hljs-constructor">REVERSE(<span class="hljs-params">str</span>)</span><br><br><span class="hljs-constructor">ELT(N,<span class="hljs-params">str1</span>,<span class="hljs-params">str2</span>,<span class="hljs-params">str3</span>,<span class="hljs-operator">...</span>)</span>：返回参数strN, 若N大于str参数个数，则返回NULL<br><br><span class="hljs-constructor">FIELD(<span class="hljs-params">str</span>,<span class="hljs-params">str1</span>,<span class="hljs-params">str2</span>,<span class="hljs-params">str3</span>,<span class="hljs-operator">...</span>)</span>: 返回str在后面的str列表中第一次出现的位置，若找不到str或者str为NULL, 则返回<span class="hljs-number">0</span><br><br><span class="hljs-constructor">FIND_IN_SET(<span class="hljs-params">str</span>,<span class="hljs-params">strlist</span>)</span>：strlist是由<span class="hljs-character">&#x27;,&#x27;</span>分隔的字符串，若str不在strlist或者strlist为空字符串，则返回<span class="hljs-number">0</span>；若任意一个参数为NULL则返回ＮＵＬＬ<br><br><span class="hljs-constructor">MAKE_SET(<span class="hljs-params">bits</span>,<span class="hljs-params">str1</span>,<span class="hljs-params">str2</span>,<span class="hljs-operator">...</span>)</span>: 由bits的作为位图来选取strN参数，选中的参数用<span class="hljs-character">&#x27;,&#x27;</span>连接后返回<br></code></pre></td></tr></table></figure>
+
+
+
+<p><strong>3. 日期和时间函数</strong></p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-constructor">CURDATE()</span>, CURRENT_DATE, <span class="hljs-constructor">CURRENT_DATE()</span>:用于获取当前日期，格式为&#x27;YYYY-MM-DD&#x27;; 若+<span class="hljs-number">0</span>则返回YYYYMMDD<br><br>UTC_DATE, <span class="hljs-constructor">UTC_DATE()</span>:返回当前世界标准时间<br><br><span class="hljs-constructor">CURTIME([<span class="hljs-params">fsp</span>])</span>, CURRENT_TIME, <span class="hljs-constructor">CURRENT_TIME([<span class="hljs-params">fsp</span>])</span>: 用于获取当前时间， 格式为&#x27;HH:MM:SS&#x27; 若+<span class="hljs-number">0</span>则返回 HHMMSS<br><br>UTC_TIME, <span class="hljs-constructor">UTC_TIME([<span class="hljs-params">fsp</span>])</span><br><br>CURRENT_TIMESTAMP, <span class="hljs-constructor">CURRENT_TIMESTAMP([<span class="hljs-params">fsp</span>])</span>, LOCALTIME, <span class="hljs-constructor">LOCALTIME([<span class="hljs-params">fsp</span>])</span>, <span class="hljs-constructor">SYSDATE([<span class="hljs-params">fsp</span>])</span>, <span class="hljs-constructor">NOW([<span class="hljs-params">fsp</span>])</span>: 用于获取当前的时间日期，格式为&#x27;YYYY-MM-DD HH:MM:SS&#x27;，若+<span class="hljs-number">0</span>则返回YYYYMMDDHHMMSS<br><br>UTC_TIMESTAMP, <span class="hljs-constructor">UTC_TIMESTAMP([<span class="hljs-params">fsp</span>])</span><br><br><span class="hljs-constructor">UNIX_TIMESTAMP()</span>, <span class="hljs-constructor">UNIX_TIMESTAMP(<span class="hljs-params">date</span>)</span>：返回一个unix时间戳（&#x27;<span class="hljs-number">1970</span>-<span class="hljs-number">01</span>-<span class="hljs-number">01</span> <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>&#x27; UTC至今或者date的秒数），这实际上是从字符串到整数的一个转化过程<br><br><span class="hljs-constructor">FROM_UNIXTIME(<span class="hljs-params">unix_timestamp</span>)</span>, <span class="hljs-constructor">FROM_UNIXTIME(<span class="hljs-params">unix_timestamp</span>,<span class="hljs-params">format</span>)</span>：从时间戳返回&#x27;YYYY-MM-DD HH:MM:SS&#x27; 或者YYYYMMDDHHMMSS，加入format后根据所需的format显示。<br><br><span class="hljs-constructor">MONTH(<span class="hljs-params">date</span>)</span><br><br><span class="hljs-constructor">MONTHNAME(<span class="hljs-params">date</span>)</span><br><br><span class="hljs-constructor">DAYNAME(<span class="hljs-params">date</span>)</span><br><br><span class="hljs-constructor">DAY(<span class="hljs-params">date</span>)</span>，<span class="hljs-constructor">DAYOFMONTH(<span class="hljs-params">date</span>)</span>：<span class="hljs-number">1</span>-<span class="hljs-number">31</span>或者<span class="hljs-number">0</span><br><br><span class="hljs-constructor">DAYOFWEEK(<span class="hljs-params">date</span>)</span>：<span class="hljs-number">1</span>-<span class="hljs-number">7</span>==&gt;星期天-星期六<br><br><span class="hljs-constructor">DAYOFYEAR(<span class="hljs-params">date</span>)</span>：<span class="hljs-number">1</span>-<span class="hljs-number">365</span>（<span class="hljs-number">366</span>）<br><br><span class="hljs-constructor">WEEK(<span class="hljs-params">date</span>[,<span class="hljs-params">mode</span>])</span>：判断是一年的第几周，如果<span class="hljs-number">1</span>-<span class="hljs-number">1</span>所在周在新的一年多于<span class="hljs-number">4</span>天，则将其定为第一周；否则将其定为上一年的最后一周。mode是用来人为定义一周从星期几开始。<br><br><span class="hljs-constructor">WEEKOFYEAR(<span class="hljs-params">date</span>)</span>：类似week(date,<span class="hljs-number">3</span>)，从周一开始计算一周。<br><br><span class="hljs-constructor">QUARTER(<span class="hljs-params">date</span>)</span>：返回<span class="hljs-number">1</span>-<span class="hljs-number">4</span><br><br><span class="hljs-constructor">HOUR(<span class="hljs-params">time</span>)</span>：返回时间中的小时数，可以大于<span class="hljs-number">24</span><br><br><span class="hljs-constructor">MINUTE(<span class="hljs-params">time</span>)</span>：<br><br><span class="hljs-constructor">SECOND(<span class="hljs-params">time</span>)</span>：<br><br><span class="hljs-constructor">EXTRACT(<span class="hljs-params">unit</span> FROM <span class="hljs-params">date</span>)</span>：提取日期时间中的要素<br><br>- <br>- <br>- <br>- <br><br>​```<br>SELECT <span class="hljs-constructor">EXTRACT(YEAR FROM &#x27;2009-07-02&#x27;)</span>; ##<span class="hljs-number">2009</span>SELECT <span class="hljs-constructor">EXTRACT(YEAR_MONTH FROM &#x27;2009-07-02 01:02:03&#x27;)</span>;##<span class="hljs-number">200907</span>SELECT <span class="hljs-constructor">EXTRACT(DAY_MINUTE FROM &#x27;2009-07-02 01:02:03&#x27;)</span>;##<span class="hljs-number">20102</span>SELECT <span class="hljs-constructor">EXTRACT(MICROSECOND FROM &#x27;2003-01-02 10:30:00.000123&#x27;)</span>;##<span class="hljs-number">123</span><br>​```<br><br><span class="hljs-constructor">TIME_TO_SEC(<span class="hljs-params">time</span>)</span><br><br><span class="hljs-constructor">SEC_TO_TIME(<span class="hljs-params">seconds</span>)</span><br><br><br><br><span class="hljs-constructor">TO_DAYS(<span class="hljs-params">date</span>)</span>: 从第<span class="hljs-number">0</span>年开始的天数<br><br><span class="hljs-constructor">TO_SECNDS(<span class="hljs-params">expr</span>)</span>：从第<span class="hljs-number">0</span>年开始的秒数<br><br><br><br><span class="hljs-constructor">ADDDATE(<span class="hljs-params">date</span>,INTERVAL <span class="hljs-params">expr</span> <span class="hljs-params">unit</span>)</span>, <span class="hljs-constructor">ADDDATE(<span class="hljs-params">expr</span>,<span class="hljs-params">days</span>)</span>,<span class="hljs-constructor">DATE_ADD(<span class="hljs-params">date</span>,INTERVAL <span class="hljs-params">expr</span> <span class="hljs-params">unit</span>)</span><br><br><span class="hljs-constructor">DATE_SUB(<span class="hljs-params">date</span>,INTERVAL <span class="hljs-params">expr</span> <span class="hljs-params">unit</span>)</span>, <span class="hljs-constructor">DATE_SUB(<span class="hljs-params">date</span>,INTERVAL <span class="hljs-params">expr</span> <span class="hljs-params">unit</span>)</span><br><br><span class="hljs-constructor">ADDTIME(<span class="hljs-params">expr1</span>,<span class="hljs-params">expr2</span>)</span><br><br><span class="hljs-constructor">SUBTIME(<span class="hljs-params">expr1</span>,<span class="hljs-params">expr2</span>)</span><br><br>- <br>- <br><br>​```<br>SELECT <span class="hljs-constructor">ADDTIME(&#x27;2007-12-31 23:59:59.999999&#x27;, &#x27;1 1:1:1.000002&#x27;)</span>;##&#x27;<span class="hljs-number">2008</span>-<span class="hljs-number">01</span>-<span class="hljs-number">02</span> <span class="hljs-number">01</span>:<span class="hljs-number">01</span>:<span class="hljs-number">01.000001</span>&#x27;SELECT <span class="hljs-constructor">ADDTIME(&#x27;01:00:00.999999&#x27;, &#x27;02:00:00.999998&#x27;)</span>;##&#x27;<span class="hljs-number">03</span>:<span class="hljs-number">00</span>:<span class="hljs-number">01.999997</span>&#x27;<br>​```<br><br><br><br>注意：时间日期的加减也可以直接用+/-来进行<br><br>- <br>- <br>- <br>- <br>- <br><br>​```<br>date + INTERVAL expr unitdate - INTERVAL expr unitSELECT &#x27;<span class="hljs-number">2008</span>-<span class="hljs-number">12</span>-<span class="hljs-number">31</span> <span class="hljs-number">23</span>:<span class="hljs-number">59</span>:<span class="hljs-number">59</span>&#x27; + INTERVAL <span class="hljs-number">1</span> SECOND;##&#x27;<span class="hljs-number">2009</span>-<span class="hljs-number">01</span>-<span class="hljs-number">01</span> <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>&#x27;SELECT INTERVAL <span class="hljs-number">1</span> DAY + &#x27;<span class="hljs-number">2008</span>-<span class="hljs-number">12</span>-<span class="hljs-number">31</span>&#x27;;##&#x27;<span class="hljs-number">2009</span>-<span class="hljs-number">01</span>-<span class="hljs-number">01</span>&#x27;SELECT &#x27;<span class="hljs-number">2005</span>-<span class="hljs-number">01</span>-<span class="hljs-number">01</span>&#x27; - INTERVAL <span class="hljs-number">1</span> SECOND;##&#x27;<span class="hljs-number">2004</span>-<span class="hljs-number">12</span>-<span class="hljs-number">31</span> <span class="hljs-number">23</span>:<span class="hljs-number">59</span>:<span class="hljs-number">59</span>&#x27; <br>​```<br><br><span class="hljs-constructor">DATE_FORMAT(<span class="hljs-params">date</span>,<span class="hljs-params">format</span>)</span>:<br><br><span class="hljs-constructor">DATEDIFF(<span class="hljs-params">expr1</span>,<span class="hljs-params">expr2</span>)</span>:返回相差的天数<br><br><span class="hljs-constructor">TIMEDIFF(<span class="hljs-params">expr1</span>,<span class="hljs-params">expr2</span>)</span>：返回相隔的时间<br><br><br></code></pre></td></tr></table></figure>
+
+<p><strong>4. 条件判断函数</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs sql">IF(expr1,expr2,expr3)：如果expr1不为<span class="hljs-number">0</span>或者<span class="hljs-keyword">NULL</span>,则返回expr2的值，否则返回expr3的值<br><br>IFNULL(expr1,expr2)：如果expr1不为<span class="hljs-keyword">NULL</span>,返回expr1,否则返回expr2<br><br><span class="hljs-built_in">NULLIF</span>(expr1,expr2): 如果expr1<span class="hljs-operator">=</span>expr2则返回<span class="hljs-keyword">NULL</span>, 否则返回expr2<br><br><span class="hljs-keyword">CASE</span> <span class="hljs-keyword">value</span> <span class="hljs-keyword">WHEN</span> [compare_value] <span class="hljs-keyword">THEN</span> <span class="hljs-keyword">result</span> [<span class="hljs-keyword">WHEN</span> [compare_value] <span class="hljs-keyword">THEN</span> <span class="hljs-keyword">result</span> ...] [<span class="hljs-keyword">ELSE</span> <span class="hljs-keyword">result</span>] <span class="hljs-keyword">END</span><br><br>当compare_value<span class="hljs-operator">=</span><span class="hljs-keyword">value</span>时返回<span class="hljs-keyword">result</span><br><br><span class="hljs-keyword">CASE</span> <span class="hljs-keyword">WHEN</span> [<span class="hljs-keyword">condition</span>] <span class="hljs-keyword">THEN</span> <span class="hljs-keyword">result</span> [<span class="hljs-keyword">WHEN</span> [<span class="hljs-keyword">condition</span>] <span class="hljs-keyword">THEN</span> <span class="hljs-keyword">result</span> ...] [<span class="hljs-keyword">ELSE</span> <span class="hljs-keyword">result</span>] <span class="hljs-keyword">END</span><br><br>当<span class="hljs-keyword">condition</span>为<span class="hljs-literal">TRUE</span>时返回<span class="hljs-keyword">result</span><br></code></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">CASE</span> <span class="hljs-number">1</span> <span class="hljs-keyword">WHEN</span> <span class="hljs-number">1</span> <span class="hljs-keyword">THEN</span> ‘<span class="hljs-keyword">one</span>’<span class="hljs-keyword">WHEN</span> <span class="hljs-number">2</span> <span class="hljs-keyword">THEN</span> ‘two’ <span class="hljs-keyword">ELSE</span> ‘more’ <span class="hljs-keyword">END</span>;##‘<span class="hljs-keyword">one</span>’<span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">CASE</span> <span class="hljs-keyword">WHEN</span> <span class="hljs-number">1</span><span class="hljs-operator">&gt;</span><span class="hljs-number">0</span> <span class="hljs-keyword">THEN</span> ‘<span class="hljs-literal">true</span>’ <span class="hljs-keyword">ELSE</span> ‘<span class="hljs-literal">false</span>’ <span class="hljs-keyword">END</span>;##‘<span class="hljs-literal">true</span>’<span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">CASE</span> <span class="hljs-type">BINARY</span> ‘B’<span class="hljs-keyword">WHEN</span> ‘a’ <span class="hljs-keyword">THEN</span> <span class="hljs-number">1</span> <span class="hljs-keyword">WHEN</span> ‘b’ <span class="hljs-keyword">THEN</span> <span class="hljs-number">2</span> <span class="hljs-keyword">END</span>;##<span class="hljs-keyword">NULL</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p><strong>5. 系统信息函数</strong></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">VERSION</span><span class="hljs-params">()</span></span>:返回mysql服务器的版本，是utf8编码的字符串<br><br><span class="hljs-function"><span class="hljs-title">CONNECTION_ID</span><span class="hljs-params">()</span></span>：显示连接号（连接的线程号）<br><br><span class="hljs-function"><span class="hljs-title">DATABASE</span><span class="hljs-params">()</span></span>，SCHEMA()：显示当前使用的数据库<br><br><span class="hljs-function"><span class="hljs-title">SESSION_USER</span><span class="hljs-params">()</span></span>, SYSTEM_USER(), USER(), CURRENT_USER, CURRENT_USER():返回当前的用户名@主机，utf8编码字符串<br><br><span class="hljs-function"><span class="hljs-title">CHARSET</span><span class="hljs-params">(str)</span></span><br><br><span class="hljs-function"><span class="hljs-title">COLLATION</span><span class="hljs-params">(str)</span></span><br><br><span class="hljs-function"><span class="hljs-title">LAST_INSERT_ID</span><span class="hljs-params">()</span></span>：自动返回最后一个insert或者update查询， 为auto_increment列设置的第一个发生的值<br></code></pre></td></tr></table></figure>
+
+
+
+<p><strong>6. 加密和压缩函数</strong></p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-constructor">PASSWORD(<span class="hljs-params">str</span>)</span>:这个函数的输出与变量old_password有关。<br><br>old_password 在mysql5.<span class="hljs-number">6</span>中默认为<span class="hljs-number">0</span>。<br><br>old_password=<span class="hljs-number">1</span>时， password(str)的效果与old<span class="hljs-constructor">_password(<span class="hljs-params">str</span>)</span>相同，由于其不够安全已经弃用（<span class="hljs-number">5.6</span>.<span class="hljs-number">5</span>以后）。<br><br><br><br>old_password=<span class="hljs-number">2</span>时，在生成哈希密码时会随机加盐。<br><br><br><br><span class="hljs-constructor">MD5(<span class="hljs-params">str</span>)</span>:计算MD5 <span class="hljs-number">128</span>位校验和，返回<span class="hljs-number">32</span>位<span class="hljs-number">16</span>进制数构成的字符串，当str为NULL时返回NULL。可以用作哈希密码<br><br><span class="hljs-constructor">SHA1(<span class="hljs-params">str</span>)</span>, <span class="hljs-constructor">SHA(<span class="hljs-params">str</span>)</span>：计算<span class="hljs-number">160</span>位校验和，返回<span class="hljs-number">40</span>位<span class="hljs-number">16</span>进制数构成的字符串，当str为NULL时返回NULL。<br><br><span class="hljs-constructor">SHA2(<span class="hljs-params">str</span>, <span class="hljs-params">hash_length</span>)</span>：计算SHA-<span class="hljs-number">2</span>系列的哈希方法(SHA-<span class="hljs-number">224</span>, SHA-<span class="hljs-number">256</span>, SHA-<span class="hljs-number">384</span>, <span class="hljs-keyword">and</span> SHA-<span class="hljs-number">512</span>). 第一个参数为待校验字符串，第二个参数为结果的位数（<span class="hljs-number">224</span>， <span class="hljs-number">256</span>， <span class="hljs-number">384</span>， <span class="hljs-number">512</span>）<br><br><span class="hljs-constructor">ENCRYPT(<span class="hljs-params">str</span>[,<span class="hljs-params">salt</span>])</span>: 用unix crypt<span class="hljs-literal">()</span>来加密str. salt至少要有两位字符，否则会返回NULL。若未指定salt参数，则会随机添加salt。<br><br><br><br><span class="hljs-constructor">ECODE(<span class="hljs-params">crypt_str</span>,<span class="hljs-params">pass_str</span>)</span>:解密crypt_str, pass_str用作密码<br><br><span class="hljs-constructor">ENCODE(<span class="hljs-params">str</span>,<span class="hljs-params">pass_str</span>)</span>：用pass_str作为密码加密str<br><br><br><br><span class="hljs-constructor">DES_ENCRYPT(<span class="hljs-params">str</span>[,&#123;<span class="hljs-params">key_num</span>|<span class="hljs-params">key_str</span>&#125;])</span>：用Triple-DES算法编码str， 这个函数只有在mysql配置成支持ssl时才可用。<br><br><span class="hljs-constructor">DES_DECRYPT(<span class="hljs-params">crypt_str</span>[,<span class="hljs-params">key_str</span>])</span><br><br><br><br><span class="hljs-constructor">AES_ENCRYPT(<span class="hljs-params">str</span>,<span class="hljs-params">key_str</span>[,<span class="hljs-params">init_vector</span>])</span><br><br><span class="hljs-constructor">AES_DECRYPT(<span class="hljs-params">crypt_str</span>,<span class="hljs-params">key_str</span>[,<span class="hljs-params">init_vector</span>])</span><br><br><br><br><span class="hljs-constructor">COMPRESS(<span class="hljs-params">string_to_compress</span>)</span>：返回二进制码<br><br><span class="hljs-constructor">UNCOMPRESS(<span class="hljs-params">string_to_uncompress</span>)</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p><strong>7. 聚合函数</strong></p>
+<p>若在没使用group by时使用聚合函数，相当于把所有的行都归于一组来进行处理。除非特殊说明，一般聚合函数会忽略掉NULL.</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">AVG([<span class="hljs-keyword">DISTINCT</span>] expr): 返回expr的平均值，<span class="hljs-keyword">distinct</span>选项用于忽略重复值<br><br>COUNT([<span class="hljs-keyword">DISTINCT</span>] expr)：返回<span class="hljs-keyword">select</span>中expr的非<span class="hljs-number">0</span>值个数，返回值为<span class="hljs-type">bigint</span>类型<br><br>group_concat:连接组内的非空值，若无非空值，则返回<span class="hljs-keyword">NULL</span><br><br><br><br>GROUP_CONCAT([<span class="hljs-keyword">DISTINCT</span>] expr [,expr …]<br><br><br><br>[ <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> &#123;unsigned_integer | col_name | expr&#125;<br><br>[<span class="hljs-keyword">ASC</span> | <span class="hljs-keyword">DESC</span>] [,col_name …]<br><br>MAX([<span class="hljs-keyword">DISTINCT</span>] expr)<br><br>MIN([<span class="hljs-keyword">DISTINCT</span>] expr)<br><br><br><br>SUM([<span class="hljs-keyword">DISTINCT</span>] expr)<br><br>VAR_POP(expr)<br><br>VARIANCE(expr)：同VAR_POP(expr)，但是这是标准<span class="hljs-keyword">sql</span>的一个扩展函数<br><br>VAR_SAMP(expr)<br><br>STD(expr): 这是标准<span class="hljs-keyword">sql</span>的一个扩展函数<br><br>STDDEV(expr)：这个函数是为了跟oracle兼容而设置的<br><br>STDDEV_POP(expr)：这个是<span class="hljs-keyword">sql</span>标准函数<br><br><br><br>STDDEV_SAMP(expr)：样本标准差<br></code></pre></td></tr></table></figure>
+
+
+
+<p><strong>8. 格式或类型转化函数</strong></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">FORMAT</span><span class="hljs-params">(X,D[,locale])</span></span>：将数字X转化成<span class="hljs-string">&#x27;#,###,###.##&#x27;</span>格式，D为保留的小数位数<br><br><span class="hljs-function"><span class="hljs-title">CONV</span><span class="hljs-params">(N,from_base,to_base)</span></span>：改变数字N的进制，返回值为该进制下的数字构成的字符串<br><br><span class="hljs-function"><span class="hljs-title">INET_ATON</span><span class="hljs-params">(expr)</span></span>：ip字符串转数字<br><br><span class="hljs-function"><span class="hljs-title">INET_NTOA</span><span class="hljs-params">(expr)</span></span>：数字转ip字符串<br><br><span class="hljs-function"><span class="hljs-title">CAST</span><span class="hljs-params">(expr AS type)</span></span>：转换数据类型<br><br><span class="hljs-function"><span class="hljs-title">CONVERT</span><span class="hljs-params">(expr,type)</span></span>, CONVERT(expr USING transcoding_name)：type可以为BINARY<span class="hljs-selector-attr">[(N)]</span>，CHAR<span class="hljs-selector-attr">[(N)]</span>，DATE，DATETIME， DECIMAL<span class="hljs-selector-attr">[(M[,D]</span>)]，DECIMAL<span class="hljs-selector-attr">[(M[,D]</span>)]，TIME，UNSIGNED <span class="hljs-selector-attr">[INTEGER]</span>等等。transcoding_name如utf8等等<br></code></pre></td></tr></table></figure>
+
+
+  </article>
+
+  
+      
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+        <a class="nexmoefont icon-tag-fill -none-link" href="/tags/Data-Structure/" rel="tag">Data Structure</a> <a class="nexmoefont icon-tag-fill -none-link" href="/tags/Markdown/" rel="tag">Markdown</a> <a class="nexmoefont icon-tag-fill -none-link" href="/tags/Mysql/" rel="tag">Mysql</a>
+    
+</div>
+
+  
+      <div class="nexmoe-post-footer">
+          
+      </div>
+  
+</div>
+            <div class="nexmoe-post-right">
+              <div class="nexmoe-fixed">
+                  <div class="nexmoe-tool"> 
+                    
+                      
+                    
+                      <a href="#nexmoe-content" class="toc-link" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+     
+    <div id="nexmoe-search-space">
+        <div class="search-container">
+            <div class="search-header">
+                <div class="search-input-container">
+                    <input class="search-input" type="text" placeholder="搜索" oninput="sinput();">
+                </div>
+                <a class="search-close" onclick="sclose();">×</a>
+            </div>
+            <div class="search-body"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+ 
+
+<script async src="/js/app.js?v=1640594878767"></script>
+
+
+	<script async src="/js/search.js?v=1640594878767"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+
+    
+
+
+
+
+
+</body>
+
+</html>
